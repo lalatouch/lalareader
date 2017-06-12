@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lalatouch/lalareader/issues"
   },
-  "homepage": "https://github.com/lalatouch/lalareader#readme"
+  "homepage": "https://github.com/lalatouch/lalareader#readme",
+  "dependencies": {
+    "noble": "^1.8.1"
+  }
 }
