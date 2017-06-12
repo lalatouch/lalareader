@@ -1,0 +1,19 @@
+{
+  "name": "lalareader",
+  "version": "1.0.0",
+  "description": "Reader server for LaLaTouch project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalatouch/lalareader.git"
+  },
+  "author": "LaLaTouch",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lalatouch/lalareader/issues"
+  },
+  "homepage": "https://github.com/lalatouch/lalareader#readme"
+}
