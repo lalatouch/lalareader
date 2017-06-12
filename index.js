@@ -6,4 +6,8 @@
  * of the MIT license.  See the LICENSE file for details.
  */
 
+var bluetooth = require('./bluetooth/index');
+
+bluetooth.init();
+
 console.log('Hello, world !');
