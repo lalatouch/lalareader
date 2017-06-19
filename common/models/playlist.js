@@ -29,4 +29,32 @@ module.exports = function(Playlist) {
     returns: [],
     http: {path: '/shuffle'}
   });
+
+  Playlist.prototype.next = function(cb) {
+    console.log("Playing next song");
+	// TODO
+    this.tracks((err, tracks) => {
+    });
+	cb(null);
+  }
+
+  Playlist.remoteMethod('prototype.next', {
+    accepts: [],
+    returns: [],
+    http: {path: '/next'}
+  });
+
+  Playlist.prototype.previous = function(cb) {
+    console.log("Playing previous song");
+	// TODO
+    this.tracks((err, tracks) => {
+    });
+	cb(null);
+  }
+
+  Playlist.remoteMethod('prototype.previous', {
+    accepts: [],
+    returns: [],
+    http: {path: '/previous'}
+  });
 };
