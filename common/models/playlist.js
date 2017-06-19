@@ -10,12 +10,6 @@ module.exports = function(Playlist) {
 	cb(null);
   }
 
-  Playlist.remoteMethod('prototype.play', {
-    accepts: [],
-    returns: [],
-    http: {path: '/play'}
-  });
-
   Playlist.prototype.shuffle = function(cb) {
     console.log("Shuffling playlist " + this.id);
 	// TODO
@@ -23,12 +17,6 @@ module.exports = function(Playlist) {
     });
 	cb(null);
   }
-
-  Playlist.remoteMethod('prototype.shuffle', {
-    accepts: [],
-    returns: [],
-    http: {path: '/shuffle'}
-  });
 
   Playlist.prototype.next = function(cb) {
     console.log("Playing next song");
@@ -38,12 +26,6 @@ module.exports = function(Playlist) {
 	cb(null);
   }
 
-  Playlist.remoteMethod('prototype.next', {
-    accepts: [],
-    returns: [],
-    http: {path: '/next'}
-  });
-
   Playlist.prototype.previous = function(cb) {
     console.log("Playing previous song");
 	// TODO
@@ -51,10 +33,4 @@ module.exports = function(Playlist) {
     });
 	cb(null);
   }
-
-  Playlist.remoteMethod('prototype.previous', {
-    accepts: [],
-    returns: [],
-    http: {path: '/previous'}
-  });
 };

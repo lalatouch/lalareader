@@ -22,5 +22,26 @@
     }
   },
   "acls": [],
-  "methods": {}
+  "methods": {
+	  "prototype.play": {
+		  "accepts": [],
+		  "returns": [],
+		  "http": {"path": "/play"}
+	  },
+	  "prototype.shuffle": {
+		  "accepts": [],
+		  "returns": [],
+		  "http": {"path": "/shuffle"}
+	  },
+	  "prototype.next": {
+		  "accepts": [],
+		  "returns": [],
+		  "http": {"path": "/next"}
+	  },
+	  "prototype.previous": {
+		  "accepts": [],
+		  "returns": [],
+		  "http": {"path": "/previous"}
+	  }
+  }
 }
