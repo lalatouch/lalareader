@@ -12,5 +12,9 @@
       "../common/mixins",
       "./mixins"
     ]
+  },
+  "track": {
+    "dataSource": "tracks",
+    "public": true
   }
 }
