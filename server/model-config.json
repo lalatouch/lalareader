@@ -14,11 +14,11 @@
     ]
   },
   "track": {
-    "dataSource": "tracks",
+    "dataSource": "music",
     "public": true
   },
   "playlist": {
-    "dataSource": "playlists",
+    "dataSource": "music",
     "public": true
   }
 }
