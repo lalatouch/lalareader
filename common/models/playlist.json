@@ -14,7 +14,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "tracks": {
+      "type": "hasAndBelongsToMany",
+      "model": "track",
+      "through": "playlistTrack"
+    }
+  },
   "acls": [],
   "methods": {}
 }

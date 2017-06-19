@@ -20,5 +20,9 @@
   "playlist": {
     "dataSource": "music",
     "public": true
+  },
+  "playlistTrack": {
+    "dataSource": "music",
+    "public": false
   }
 }

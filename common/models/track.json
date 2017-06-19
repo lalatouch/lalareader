@@ -25,7 +25,8 @@
   "relations": {
     "playlists": {
       "type": "hasAndBelongsToMany",
-      "model": "playlist"
+      "model": "playlist",
+      "through": "playlistTrack"
     }
   },
   "acls": [],
