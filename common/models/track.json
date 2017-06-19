@@ -22,7 +22,12 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "playlists": {
+      "type": "hasAndBelongsToMany",
+      "model": "playlist"
+    }
+  },
   "acls": [],
   "methods": {}
 }
