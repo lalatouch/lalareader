@@ -1,2 +1,11 @@
 {
+  "tracks": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "music",
+    "password": "azertyuiop",
+    "name": "tracks",
+    "user": "postgres",
+    "connector": "postgresql"
+  }
 }
