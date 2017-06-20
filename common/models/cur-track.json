@@ -19,6 +19,15 @@
       "http": {
         "path": "/fast/:dir/:status"
       }
+	},
+    "control": {
+      "accepts": [
+		  {"arg": "command", "type": "string", "http": {"source": "path"}, "required": true}
+	  ],
+      "returns": [],
+      "http": {
+        "path": "/control/:command"
+      }
 	}
   }
 }
