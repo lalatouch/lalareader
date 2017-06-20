@@ -28,6 +28,16 @@
       "http": {
         "path": "/control/:command"
       }
+	},
+    "volume": {
+      "accepts": [
+			{"arg": "pos", "type": "string", "http": {"source": "path"}, "required": true},
+			{"arg": "val", "type": "int", "http": {"source": "path"}, "required": true}
+	  ],
+      "returns": [],
+      "http": {
+        "path": "/volume/:pos/:val"
+      }
 	}
   }
 }

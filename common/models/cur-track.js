@@ -52,4 +52,28 @@ module.exports = function(Curtrack) {
 	}
 	cb(res);
   }
+
+  Curtrack.volume = function(pos, val, cb) {
+	console.log("pos=" + pos + ", val = " + val);
+	var res;
+	if(pos === "abs") {
+		if(val >= 0 && val <= 100) {
+			console.log("Set absolute volume to " + val);
+		} else {
+			res = new Error("Value out of bounds");
+			res.status = 400;
+		}
+	} else if(pos === "rel") {
+		if(val >= -100 && val <= 100) {
+			console.log("Adding " + val + " to current volume");
+		} else {
+			res = new Error("Value out of bounds");
+			res.status = 400;
+		}
+	} else {
+		res = new Error("Wrong positionning");
+		res.status = 400;
+	}
+	cb(res);
+  }
 };
