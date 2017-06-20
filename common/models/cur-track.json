@@ -1,0 +1,24 @@
+{
+  "name": "curTrack",
+  "base": "Model",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "fastDir": {
+      "accepts": [
+		  {"arg": "dir", "type": "string", "http": {"source": "path"}, "required": true},
+		  {"arg": "status", "type": "string", "http": {"source": "path"}, "required": true}
+	  ],
+      "returns": [],
+      "http": {
+        "path": "/fast/:dir/:status"
+      }
+	}
+  }
+}

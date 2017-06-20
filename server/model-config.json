@@ -24,5 +24,9 @@
   "playlistTrack": {
     "dataSource": "music",
     "public": false
+  },
+  "curTrack": {
+    "dataSource": null,
+    "public": true
   }
 }
