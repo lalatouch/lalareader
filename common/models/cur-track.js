@@ -1,12 +1,24 @@
 'use strict';
 
-const mpv = require('mpv-controller');
+const mpv = require('node-mpv');
  
-var player = new mpv(status => {
-    console.log(status);
+var player = new mpv({
+	"audio_only": true
 });
 
-player.limitStatusMessages(5);
+var playerStat = { mute: false,
+	pause: false,
+	volume: 100,
+	filename: 'sample.mp3',
+	'playlist-pos': 0,
+	'playlist-count': 0,
+	loop: false
+};
+
+player.on('statuschange', function(status){
+  console.log(status);
+  playerStat = status;
+});
  
 module.exports = function(Curtrack) {
 
@@ -15,10 +27,10 @@ module.exports = function(Curtrack) {
     console.log("dir=" + dir + ", status=" + status);
 	if(dir === "forward") {
 		if(status === "go") {
-			player.increaseSpeed();
+			player.speed(50);
 			console.log("Go fforward!");
 		} else if(status === "stop") {
-			player.resetSpeed();
+			player.speed(1);
 			console.log("Stop fforwarding...");
 		} else {
 			res = new Error("Wrong status");
@@ -26,10 +38,12 @@ module.exports = function(Curtrack) {
 		}
 	} else if(dir === "backward") {
 		if(status === "go") {
-			player.seekBackward();
+			// TODO Go backward...
+			player.seek(-5);
 			console.log("Go backward");
 		} else if(status === "stop") {
-			player.resetSpeed();
+			curSpeed = 1;
+			player.speed(curSpeed);
 			console.log("Stop going backward");
 		} else {
 			res = new Error("Wrong status");
@@ -47,10 +61,13 @@ module.exports = function(Curtrack) {
 	var res;
 	if(command === "play") {
 		// TODO Choose the current track
-		player.play("/mnt/Musique/rayman legends.m4a");
+		if(playerStat.pause == true && playerStat['playlist-count'] > 0)
+			player.togglePause();
+		else
+			player.loadFile("sample.mp3");
 		console.log("Playing music");
 	} else if(command === "pause") {
-		player.togglePause();
+		player.pause();
 		console.log("Pausing music");
 	} else if(command === "stop") {
 		player.stop();
@@ -68,7 +85,7 @@ module.exports = function(Curtrack) {
 	if(pos === "abs") {
 		if(val >= 0 && val <= 100) {
 			console.log("Set absolute volume to " + val);
-			// TODO
+			player.volume(val);
 		} else {
 			res = new Error("Value out of bounds");
 			res.status = 400;
@@ -76,11 +93,7 @@ module.exports = function(Curtrack) {
 	} else if(pos === "rel") {
 		if(val >= -100 && val <= 100) {
 			console.log("Adding " + val + " to current volume");
-			// TODO Correct
-			if(val>0)
-				player.increaseVolume();
-			else
-				player.decreaseVolume();
+			player.adjustVolume(val);
 		} else {
 			res = new Error("Value out of bounds");
 			res.status = 400;
