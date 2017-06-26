@@ -52,6 +52,7 @@ module.exports = function(Curtrack) {
 			res = new Error("Wrong direction");
 			res.status = 400;
 		}
+
 		cb(res);
 	}
 
@@ -61,8 +62,10 @@ module.exports = function(Curtrack) {
 		if(command === "play") {
 			if(playerStat.pause == true && playerStat['playlist-count'] > 0)
 				player.togglePause();
-			else
+			else {
 				player.loadFile("songs/" + (this.filename || "sample.mp3"));
+				console.log("Playing file", this.filename || "sample.mp3");
+			}
 			console.log("Playing music");
 		} else if(command === "pause") {
 			player.pause();

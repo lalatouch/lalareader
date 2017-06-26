@@ -11,6 +11,9 @@ module.exports = function(Playlist) {
 		}, (err, tracks) => {
 			if (err) return cb(err);
 
+			// Generate a mapping track id => rank
+			Playlist.curRanks = {};
+			tracks.forEach(t => Playlist.curRanks[t.trackId] = t.rank);
 			async.map(tracks, (t, cb) => t.track((err, track) => {
 				if (err) return cb(err);
 
@@ -21,10 +24,7 @@ module.exports = function(Playlist) {
 
 	Playlist.prototype.nearTrack = function(isNext, cb) {
 		var r = {};
-		r[isNext ? "gt" : "lt"] = Playlist.curTrack.rank;
-		console.log("=====================");
-		console.log(r);
-		console.log("=====================");
+		r[isNext ? "gt" : "lt"] = Playlist.curRanks[Playlist.curTrack.id];
 
 		Playlist.app.models.PlaylistTrack.findOne({
 			where: {
@@ -32,7 +32,10 @@ module.exports = function(Playlist) {
 				rank: r
 			},
 			order: "rank " + (isNext ? "ASC" : "DESC")
-		}, cb);
+		}, (err, pt) => {
+			if (err) cb(err);
+			else     pt.track(cb);
+		});
 	}
 
 	Playlist.prototype.playTrack = function(track, cb) {
@@ -54,7 +57,7 @@ module.exports = function(Playlist) {
 		this.sortedTracks((err, tracks) => {
 			if (err) return cb(err);
 			this.playTrack(tracks[0], cb);
-			
+
 			console.log(tracks);
 		});
 	}
@@ -82,9 +85,14 @@ module.exports = function(Playlist) {
 
 	Playlist.prototype.previous = function(cb) {
 		console.log("Playing previous song");
-		// TODO
-		this.tracks((err, tracks) => {
+
+		// Find previous track in the playlist
+		this.nearTrack(false, (err, track) => {
+			if (err) cb(err);
+			// Not the last track, play is
+			else if (track) this.playTrack(track, cb);
+			// No track found <=> last track => play first one
+			else this.play(cb);
 		});
-		cb(null);
 	}
 };
