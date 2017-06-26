@@ -32,5 +32,13 @@
   "Module": {
     "dataSource": "music",
     "public": true
+  },
+  "Tag": {
+    "dataSource": "music",
+    "public": true
+  },
+  "TagLink": {
+    "dataSource": "music",
+    "public": false
   }
 }

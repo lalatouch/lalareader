@@ -1,6 +1,6 @@
 'use strict';
 
-let http = require("http");
+let http = require("http"), async = require("async");
 
 module.exports = Module => {
 	Module.register = function(req, identifier, cb) {
@@ -60,21 +60,61 @@ module.exports = Module => {
 							else p.play(cb);
 						});
 				}
-				else {
-					// Search figurine
-					// TODO
-				}
+				else Module.doSearch(cb);
 			}
 			else {
 				// We took up the figurine
 				if (this.playlistId)
 					CurTrack.control("pause", cb);
-				else {
-					// TODO
-				}
+				else Module.doSearch(cb);
 			}
 		});
 	}
+
+	Module.doSearch = function(cb) {
+		// Find all modules that are put down with no playlist
+		Module.find({where: {
+				playlistId: null,
+				isDown: true
+		}}, (err, mods) => {
+			if (err) return cb(err);
+			// Load their tags
+			async.map(mods, (m, cb) => m.tags(cb), (err, tags) => {
+				if (err) return cb(err);
+
+				// Merge tags list
+				var tagsIds = [];
+				tags.forEach(t => (t || []).forEach(t => {
+					if (tagsIds.indexOf(t.id) == -1) tagsIds.push(t.id);
+				}));
+
+				// Load links for those tags
+				Module.app.models.TagLink.find({where: {
+					taggableType: "playlist",
+					tagId: {inq: tagsIds}
+				}}, (err, links) => {
+					if (err) return cb(err);
+
+					// Extract IDs
+					links = links.map(l => l.taggableId);
+					// Dedupe IDs
+					links = links.filter((l, p) => links.indexOf(l) === p);
+					// Load corresponding modules
+					Module.find({where: {
+						playlistId: {neq: null}
+					}}, (err, mods) => {
+						if (err) return cb(err);
+
+						async.each(mods, (m, cb) => {
+							if (links.indexOf(m.playlistId) === -1)
+								m.lightDown(cb);
+							else m.lightUp(cb);
+						}, cb);
+					});
+				});
+			});
+		});
+	};
 
 	Module.put = function(req, status, cb) {
 		// Get module with proper IP
