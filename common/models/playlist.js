@@ -33,8 +33,9 @@ module.exports = function(Playlist) {
 			},
 			order: "rank " + (isNext ? "ASC" : "DESC")
 		}, (err, pt) => {
-			if (err) cb(err);
-			else     pt.track(cb);
+			if (err)     cb(err);
+			else if (pt) pt.track(cb);
+			else         cb(null, undefined);
 		});
 	}
 
