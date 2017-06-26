@@ -27,7 +27,7 @@ module.exports = function(Curtrack) {
     console.log("dir=" + dir + ", status=" + status);
 	if(dir === "forward") {
 		if(status === "go") {
-			player.speed(50);
+			player.speed(10);
 			console.log("Go fforward!");
 		} else if(status === "stop") {
 			player.speed(1);
@@ -42,8 +42,7 @@ module.exports = function(Curtrack) {
 			player.seek(-5);
 			console.log("Go backward");
 		} else if(status === "stop") {
-			curSpeed = 1;
-			player.speed(curSpeed);
+			player.speed(1);
 			console.log("Stop going backward");
 		} else {
 			res = new Error("Wrong status");
