@@ -11,8 +11,40 @@ module.exports = function(Playlist) {
 		}, (err, tracks) => {
 			if (err) return cb(err);
 
-			async.map(tracks, (t, cb) => t.track(cb), cb);
+			async.map(tracks, (t, cb) => t.track((err, track) => {
+				if (err) return cb(err);
+
+				track.rank = t.rank;
+				cb(null, track);
+			}), cb);
 		});
+	}
+
+	Playlist.prototype.nearTrack = function(isNext, cb) {
+		var r = {};
+		r[isNext ? "gt" : "lt"] = Playlist.curTrack.rank;
+		console.log("=====================");
+		console.log(r);
+		console.log("=====================");
+
+		Playlist.app.models.PlaylistTrack.findOne({
+			where: {
+				playlistId: this.id,
+				rank: r
+			},
+			order: "rank " + (isNext ? "ASC" : "DESC")
+		}, cb);
+	}
+
+	Playlist.prototype.playTrack = function(track, cb) {
+		Playlist.curTrack = track;
+
+		var Curtrack = Playlist.app.models.curTrack;
+		Curtrack.filename = track.uri;
+		Curtrack.control("stop", err => {
+			if (err) cb(err);
+			else Curtrack.control("play", cb);
+		})
 	}
 
 	Playlist.prototype.play = function(cb) {
@@ -22,12 +54,9 @@ module.exports = function(Playlist) {
 		Playlist.curPlaylist = this;
 		this.sortedTracks((err, tracks) => {
 			if (err) return cb(err);
-
-			Playlist.app.models.Track.curTrack = tracks[0];
-
-			var Curtrack = Playlist.app.models.curTrack;
-			Curtrack.filename = tracks[0].uri;
-			Curtrack.control("play", cb);
+			this.playTrack(tracks[0], cb);
+			
+			console.log(tracks);
 		});
 	}
 
@@ -41,10 +70,15 @@ module.exports = function(Playlist) {
 
 	Playlist.prototype.next = function(cb) {
 		console.log("Playing next song");
-		// TODO
-		this.tracks((err, tracks) => {
+
+		// Find next track in the playlist
+		this.nearTrack(true, (err, track) => {
+			if (err) cb(err);
+			// Not the last track, play is
+			else if (track) this.playTrack(track, cb);
+			// No track found <=> last track => play first one
+			else this.play(cb);
 		});
-		cb(null);
 	}
 
 	Playlist.prototype.previous = function(cb) {
