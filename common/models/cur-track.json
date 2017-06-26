@@ -1,43 +1,43 @@
 {
-  "name": "curTrack",
-  "base": "Model",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {},
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {
-    "fastDir": {
-      "accepts": [
-		  {"arg": "dir", "type": "string", "http": {"source": "path"}, "required": true},
-		  {"arg": "status", "type": "string", "http": {"source": "path"}, "required": true}
-	  ],
-      "returns": [],
-      "http": {
-        "path": "/fast/:dir/:status"
-      }
+	"name": "curTrack",
+	"base": "Model",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
 	},
-    "control": {
-      "accepts": [
-		  {"arg": "command", "type": "string", "http": {"source": "path"}, "required": true}
-	  ],
-      "returns": [],
-      "http": {
-        "path": "/control/:command"
-      }
-	},
-    "volume": {
-      "accepts": [
-			{"arg": "pos", "type": "string", "http": {"source": "path"}, "required": true},
-			{"arg": "val", "type": "int", "http": {"source": "path"}, "required": true}
-	  ],
-      "returns": [],
-      "http": {
-        "path": "/volume/:pos/:val"
-      }
+	"properties": {},
+	"validations": [],
+	"relations": {},
+	"acls": [],
+	"methods": {
+		"fastDir": {
+			"accepts": [
+				{"arg": "dir", "type": "string", "http": {"source": "path"}, "required": true},
+				{"arg": "status", "type": "string", "http": {"source": "path"}, "required": true}
+			],
+			"returns": [],
+			"http": {
+				"path": "/fast/:dir/:status"
+			}
+		},
+		"control": {
+			"accepts": [
+				{"arg": "command", "type": "string", "http": {"source": "path"}, "required": true}
+			],
+			"returns": [],
+			"http": {
+				"path": "/control/:command"
+			}
+		},
+		"volume": {
+			"accepts": [
+				{"arg": "pos", "type": "string", "http": {"source": "path"}, "required": true},
+				{"arg": "val", "type": "int", "http": {"source": "path"}, "required": true}
+			],
+			"returns": [],
+			"http": {
+				"path": "/volume/:pos/:val"
+			}
+		}
 	}
-  }
 }

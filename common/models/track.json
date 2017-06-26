@@ -1,34 +1,34 @@
 {
-  "name": "track",
-  "plural": "tracks",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {
-    "title": {
-      "type": "string",
-      "required": true
-    },
-    "description": {
-      "type": "string"
-    },
-    "artist": {
-      "type": "string"
-    },
-    "uri": {
-      "type": "string"
-    }
-  },
-  "validations": [],
-  "relations": {
-    "playlists": {
-      "type": "hasAndBelongsToMany",
-      "model": "playlist",
-      "through": "playlistTrack"
-    }
-  },
-  "acls": [],
-  "methods": {}
+	"name": "track",
+	"plural": "tracks",
+	"base": "PersistedModel",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
+	},
+	"properties": {
+		"title": {
+			"type": "string",
+			"required": true
+		},
+		"description": {
+			"type": "string"
+		},
+		"artist": {
+			"type": "string"
+		},
+		"uri": {
+			"type": "string"
+		}
+	},
+	"validations": [],
+	"relations": {
+		"playlists": {
+			"type": "hasAndBelongsToMany",
+			"model": "playlist",
+			"through": "playlistTrack"
+		}
+	},
+	"acls": [],
+	"methods": {}
 }
