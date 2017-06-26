@@ -96,4 +96,7 @@ module.exports = function(Playlist) {
 			else this.play(cb);
 		});
 	}
+
+	Playlist.next = cb => Playlist.curPlaylist.next(cb);
+	Playlist.previous = cb => Playlist.curPlaylist.previous(cb);
 };

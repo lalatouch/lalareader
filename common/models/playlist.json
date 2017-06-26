@@ -37,14 +37,14 @@
 				"path": "/shuffle"
 			}
 		},
-		"prototype.next": {
+		"next": {
 			"accepts": [],
 			"returns": [],
 			"http": {
 				"path": "/next"
 			}
 		},
-		"prototype.previous": {
+		"previous": {
 			"accepts": [],
 			"returns": [],
 			"http": {
