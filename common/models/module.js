@@ -36,5 +36,44 @@ module.exports = Module => {
 			path: "/led?red=0&green=0&blue=0"
 		}, cb);
 	}
+
+	Module.prototype.put = function(status, cb) {
+		if (["up", "down"].indexOf(status) == -1) return cb(new Error("Invalid status"));
+
+		let Playlist = Module.app.models.Playlist,
+		    CurTrack = Module.app.models.curTrack;
+
+		this.isDown = status == "down";
+		this.save(err => {
+			if (err) return cb(err);
+
+			if (this.isDown) {
+				// We put down the figurine
+				if (this.playlistId) { // If we are a playlist
+					// Is is the playlist currently playing
+					if (this.playlistId == (Playlist.curPlaylist || {id: 0}).id)
+						// Then we just resume playing
+						CurTrack.control("play", cb);
+					else // Play the associated playlist
+						this.playlist((err, p) => {
+							if (err) cb(err);
+							else p.play(cb);
+						});
+				}
+				else {
+					// Search figurine
+					// TODO
+				}
+			}
+			else {
+				// We took up the figurine
+				if (this.playlistId)
+					CurTrack.control("pause", cb);
+				else {
+					// TODO
+				}
+			}
+		});
+	}
 };
 

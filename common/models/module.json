@@ -23,6 +23,12 @@
 		"prototype.playlist": {
 			"returns": {"type": "Playlist", "root": true},
 			"http": {"verb": "get"}
+		},
+		"prototype.put": {
+			"accepts": [
+				{"arg": "status", "type": "string", "http": {"source": "path"}, "required": true, "description": "up|down"}
+			],
+			"http": {"verb": "post", "path": "/put/:status"}
 		}
 	}
 }
