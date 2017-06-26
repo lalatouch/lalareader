@@ -75,5 +75,20 @@ module.exports = Module => {
 			}
 		});
 	}
+
+	Module.put = function(req, status, cb) {
+		// Get module with proper IP
+		Module.findOne({
+			where: {ip: req.connection.remoteAddress}
+		}, (err, mod) => {
+			if (err) cb(err);
+			else if (mod) mod.put(status, cb);
+			else {
+				err = new Error("No such module with IP address", req.connection.remoteAddress);
+				err.statusCode = 404;
+				cb(err);
+			}
+		});
+	}
 };
 

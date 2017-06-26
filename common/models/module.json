@@ -29,6 +29,13 @@
 				{"arg": "status", "type": "string", "http": {"source": "path"}, "required": true, "description": "up|down"}
 			],
 			"http": {"verb": "post", "path": "/put/:status"}
+		},
+		"put": {
+			"accepts": [
+				{"arg": "req", "type": "object", "http": {"source": "req"}},
+				{"arg": "status", "type": "string", "http": {"source": "path"}, "required": true, "description": "up|down"}
+			],
+			"http": {"verb": "post", "path": "/put/:status"}
 		}
 	}
 }
