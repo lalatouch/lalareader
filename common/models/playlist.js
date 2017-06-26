@@ -14,7 +14,6 @@ module.exports = function(Playlist) {
 			async.map(tracks, (t, cb) => t.track((err, track) => {
 				if (err) return cb(err);
 
-				track.rank = t.rank;
 				cb(null, track);
 			}), cb);
 		});
