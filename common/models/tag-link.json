@@ -1,0 +1,8 @@
+{
+	"name": "TagLink",
+	"base": "PersistedModel",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
+	}
+}

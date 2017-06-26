@@ -24,6 +24,12 @@
 			"type": "hasOne",
 			"model": "Module",
 			"foreignKey": "playlistId"
+		},
+		"tags": {
+			"type": "hasAndBelongsToMany",
+			"model": "Tag",
+			"through": "TagLink",
+			"polymorphic": "taggable"
 		}
 	},
 	"acls": [],

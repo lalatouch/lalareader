@@ -12,6 +12,14 @@
 			"default": false
 		}
 	},
+	"relations": {
+		"tags": {
+			"type": "hasAndBelongsToMany",
+			"model": "Tag",
+			"through": "TagLink",
+			"polymorphic": "taggable"
+		}
+	},
 	"methods": {
 		"register": {
 			"accepts": [

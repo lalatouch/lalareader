@@ -1,0 +1,32 @@
+{
+  "name": "Tag",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "remoting": {"normalizeHttpPath": true},
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "modules": {
+      "type": "hasMany",
+      "model": "Module",
+      "through": "TagLink",
+      "polymorphic": "taggable",
+      "invert": true
+    },
+    "playlists": {
+      "type": "hasMany",
+      "model": "Playlist",
+      "through": "TagLink",
+      "polymorphic": "taggable",
+      "invert": true
+    }
+  }
+}
