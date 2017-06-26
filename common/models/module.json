@@ -1,0 +1,20 @@
+{
+	"name": "Module",
+	"base": "PersistedModel",
+	"remoting": {"normalizeHttpPath": true},
+	"idInjection": true,
+	"options": {"validateUpsert": true},
+	"properties": {
+		"identifier": "string",
+		"ip": "string"
+	},
+	"methods": {
+		"register": {
+			"accepts": [
+				{ "arg": "req", "type": "object", "http": {"source": "req"} },
+				{ "arg": "identifier", "type": "string" }
+			],
+			"returns": { "type": "Module", "root": true}
+		}
+	}
+}

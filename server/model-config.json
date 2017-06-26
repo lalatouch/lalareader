@@ -28,5 +28,9 @@
   "curTrack": {
     "dataSource": null,
     "public": true
+  },
+  "Module": {
+    "dataSource": "music",
+    "public": true
   }
 }
