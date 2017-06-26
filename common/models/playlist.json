@@ -19,6 +19,11 @@
 			"type": "hasAndBelongsToMany",
 			"model": "track",
 			"through": "playlistTrack"
+		},
+		"module": {
+			"type": "hasOne",
+			"model": "Module",
+			"foreignKey": "playlistId"
 		}
 	},
 	"acls": [],

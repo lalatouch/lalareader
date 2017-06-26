@@ -6,7 +6,11 @@
 	"options": {"validateUpsert": true},
 	"properties": {
 		"identifier": "string",
-		"ip": "string"
+		"ip": "string",
+		"isDown": {
+			"type": "boolean",
+			"default": false
+		}
 	},
 	"methods": {
 		"register": {
@@ -15,6 +19,10 @@
 				{ "arg": "identifier", "type": "string" }
 			],
 			"returns": { "type": "Module", "root": true}
+		},
+		"prototype.playlist": {
+			"returns": {"type": "Playlist", "root": true},
+			"http": {"verb": "get"}
 		}
 	}
 }

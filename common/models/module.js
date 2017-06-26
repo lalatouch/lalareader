@@ -16,5 +16,9 @@ module.exports = Module => {
 			}, cb);
 		});
 	}
+
+	Module.prototype.playlist = function(cb) {
+		Module.app.models.Playlist.findById(this.playlistId, cb);
+	}
 };
 
