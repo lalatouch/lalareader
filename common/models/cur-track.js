@@ -22,8 +22,6 @@ player.on('statuschange', function(status){
 
 module.exports = function(Curtrack) {
 
-
-
 	Curtrack.fastDir = function(dir, status, cb) {
 		var res;
 		console.log("dir=" + dir + ", status=" + status);
@@ -61,11 +59,10 @@ module.exports = function(Curtrack) {
 		console.log("command=" + command);
 		var res;
 		if(command === "play") {
-			// TODO Choose the current track
 			if(playerStat.pause == true && playerStat['playlist-count'] > 0)
 				player.togglePause();
 			else
-				player.loadFile("sample.mp3");
+				player.loadFile("songs/" + (this.filename || "sample.mp3"));
 			console.log("Playing music");
 		} else if(command === "pause") {
 			player.pause();

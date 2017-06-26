@@ -1,15 +1,33 @@
 'use strict';
 
+let async = require("async");
+
 module.exports = function(Playlist) {
+
+	Playlist.prototype.sortedTracks = function(cb) {
+		Playlist.app.models.PlaylistTrack.find({
+			where: {playlistId: this.id},
+			order: "rank",
+		}, (err, tracks) => {
+			if (err) return cb(err);
+
+			async.map(tracks, (t, cb) => t.track(cb), cb);
+		});
+	}
 
 	Playlist.prototype.play = function(cb) {
 		console.log("Playing playlist " + this.id);
 
 		// Keep track of the currently playing playlist
-		Playlist.nowPlaying = this;
-		this.tracks((err, tracks) => {
+		Playlist.curPlaylist = this;
+		this.sortedTracks((err, tracks) => {
 			if (err) return cb(err);
-			else cb();
+
+			Playlist.app.models.Track.curTrack = tracks[0];
+
+			var Curtrack = Playlist.app.models.curTrack;
+			Curtrack.filename = tracks[0].uri;
+			Curtrack.control("play", cb);
 		});
 	}
 
