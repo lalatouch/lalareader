@@ -24,6 +24,7 @@ module.exports = Module => {
 	}
 
 	Module.prototype.lightUp = function(cb) {
+		if (!this.ip) return cb();
 		http.get({
 			host: this.ip,
 			path: "/led?red=1024&green=1024&blue=1024"
@@ -31,6 +32,7 @@ module.exports = Module => {
 	}
 
 	Module.prototype.lightDown = function(cb) {
+		if (!this.ip) return cb();
 		http.get({
 			host: this.ip,
 			path: "/led?red=0&green=0&blue=0"

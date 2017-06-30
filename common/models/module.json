@@ -24,7 +24,7 @@
 		"register": {
 			"accepts": [
 				{ "arg": "req", "type": "object", "http": {"source": "req"} },
-				{ "arg": "identifier", "type": "string" }
+				{ "arg": "identifier", "type": "string", "http": {"source": "body"}, "required": true }
 			],
 			"returns": { "type": "Module", "root": true}
 		},
